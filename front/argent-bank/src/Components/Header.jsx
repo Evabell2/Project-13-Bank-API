@@ -5,18 +5,18 @@ import "../style/main.css";
 
 function Header() {
     return (
-        <nav class="main-nav">
+        <nav className="main-nav">
 
-            <Link to="/" class="main-nav-logo">
-                <img class="main-nav-logo-image" src={logo} alt="Argent Bank Logo"/>
+            <Link to="/" className="main-nav-logo">
+                <img className="main-nav-logo-image" src={logo} alt="Argent Bank Logo"/>
             </Link>
 
-            <Link to="/login" class="main-nav-item">
+            <Link to="/login" className="main-nav-item">
                 <img src={icon} alt="connexion" />Sign In
             </Link>
             
        </nav>
-    );
+    )
   }
   
   export default Header;

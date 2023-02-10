@@ -1,43 +1,61 @@
 import "../style/main.css";
-import { Link } from 'react-router-dom'
 import icon from "../assets/connexion.png"
-import { useDispatch, useSelector } from "react-redux"
-import { setAutoFreeze } from "immer";
-import { setEmail } from "../redux";
+import { useState } from "react";
 
 function SignIn() {
-    const signIn = useSelector((state)=>state.login)
-    const dispatch = useDispatch()
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-//    onChange={() => dispatch(setEmail(signIn.email))}
-
-//    const handleSubmit = (event) => {
-//     event.preventDefault()
-//     dispatch(setEmail)
-//    }
+    async function handleSubmit(
+        url = 'http://localhost:3001/user/login', 
+        data = {"email": email,"password": password}) {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        if (!response.ok) {
+            throw new Error(response.statusText);
+        }
+        const responseData = await response.json();
+        console.log("Request succeeded:", responseData);
+        return responseData;
+    }
 
     return (
-        <main class="main bg-dark main_login">
-            <section class="sign-in-content">
+        <main className="main bg-dark main_login">
+            <section className="sign-in-content">
                 <img src={icon} alt="connexion" />
                 <h1>Sign In</h1>
                 <form>
-                    <div class="input-wrapper">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" value={signIn.email}/>
+                    <div className="input-wrapper">
+                        <label htmlFor="username">Username</label>
+                        <input 
+                            type="text" 
+                            id="username" 
+                            value={email} 
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                     </div>
 
-                    <div class="input-wrapper">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" value={signIn.password} />
+                    <div className="input-wrapper">
+                        <label htmlFor="password">Password</label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                     </div>
 
-                    <div class="input-remember">
+                    <div className="input-remember">
                         <input type="checkbox" id="remember-me" />
-                        <label for="remember-me">Remember me</label>
+                        <label htmlFor="remember-me">Remember me</label>
                     </div>
                     
-                    <Link to="/profile" class="sign-in-button">Sign In</Link>
+                    <button onClick={handleSubmit} className="sign-in-button">Sign In</button>
                 </form>
             </section>
         </main>
