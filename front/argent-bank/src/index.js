@@ -12,7 +12,7 @@ import { store } from "./store"
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(
-    // <Provider store={store}>
+    <Provider store={store}>
         <BrowserRouter>
 
             <Header />
@@ -24,5 +24,5 @@ root.render(
             <Footer />
 
         </BrowserRouter>,
-    // </Provider>
+    </Provider>
 )

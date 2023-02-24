@@ -1,26 +1,34 @@
 import "../style/main.css";
 import icon from "../assets/connexion.png"
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import { setToken } from '../redux';
 
 function SignIn() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const token = useSelector(state => state.auth.token)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    async function handleSubmit(
-        url = 'http://localhost:3001/user/login', 
-        data = {"email": email,"password": password}) {
+    async function handleSubmit(e) {
+        e.preventDefault()
+        const url = 'http://localhost:3001/api/v1/user/login' 
+        const data = {"email": email,"password": password}
         const response = await fetch(url, {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
         })
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
         const responseData = await response.json();
-        console.log("Request succeeded:", responseData);
+        dispatch(setToken(responseData.body.token))
+        if (response.ok) {
+            navigate('/profile');
+        }
         return responseData;
     }
 
@@ -55,7 +63,7 @@ function SignIn() {
                         <label htmlFor="remember-me">Remember me</label>
                     </div>
                     
-                    <button onClick={handleSubmit} className="sign-in-button">Sign In</button>
+                    <button type="submit" onClick={handleSubmit} className="sign-in-button">Sign In</button>
                 </form>
             </section>
         </main>

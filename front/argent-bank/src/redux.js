@@ -1,22 +1,30 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = {
-//     email: '',
-//     password: '',
-//     error: null,
-//     loading: false,
-//   };
+export const authentificationSlice = createSlice ({
+    name: "auth",
+    initialState: {
+        token: null
+    },
+    reducers: {
+        setToken: (state, action) => {
+            state.token = action.payload;
+        },
+        clearToken: (state) => {
+            state.token = null;
+        },
+    }
+})
+export const profileSlice = createSlice ({
+    name: "profile",
+    initialState: {
+        showComponent: false,
+    },
+    reducers: {
+        toggleComponent: state => {
+            state.showComponent = !state.showComponent
+        },
+    }
+})
 
-// export const loginSlice = createSlice ({
-//     name: "login",
-//     initialState,
-//     reducers: {
-//         setEmail: (state, action) => {
-//             state.email = action.payload;
-//         },
-//         setPassword: (state, action) => {
-//             state.password = action.payload;
-//         },
-//     }
-// })
-// export const { setEmail, setPassword } = loginSlice.actions
+export const { setToken, clearToken } = authentificationSlice.actions;
+export const { toggleComponent } = profileSlice.actions

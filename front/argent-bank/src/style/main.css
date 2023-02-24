@@ -306,5 +306,39 @@ body {
 
   .transaction-button {
     width: 200px;
+    text-align: center;
+    text-decoration: none;
+    border-width: 2px;
+    border-style: outset;
   }
+}
+.hidden_header {
+  display: none;
+}
+.editName {
+  margin-bottom: 30px;
+}
+.editName h1 {
+  margin-bottom: 15px;
+  color: white;
+}
+.editName form>div:first-of-type {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+.editName form label {
+  display: none;
+}
+.editName form button:first-of-type {
+  margin-right: 15px;
+}
+.editName form button {
+  padding: 5px 10px;
+  width: 110px;
+}
+
+.account.page_account {
+  width: 100%;
+  text-align: center;
 }
