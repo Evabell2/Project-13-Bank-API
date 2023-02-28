@@ -5,14 +5,20 @@ import EditWelcomeBack from "../Components/EditWelcomBack"
 import { Link } from "react-router-dom";
 
 function User() {
-    const showComponent = useSelector(state => state.profile.showComponent);
     const dispatch = useDispatch();
+    const showComponent = useSelector(state => state.profile.showComponent);
+    const theFirstName = useSelector(state => state.profile.firstName)
+    const theLastName = useSelector(state => state.profile.lastName)
     
     return (
         <main className="main bg-dark main_user">
 
             <div className={showComponent && <EditWelcomeBack /> ? "hidden_header" : "header"}>
-                <h1>Welcome back<br />Tony Jarvis!</h1>
+                <h1>Welcome back
+                    <br />
+                    <span>{theFirstName} </span>
+                    <span>{theLastName}!</span>
+                </h1>
                 <button onClick={() => dispatch(toggleComponent())} className="edit-button">Edit Name</button>
             </div>
             {showComponent && <EditWelcomeBack />}

@@ -9,22 +9,29 @@ export const authentificationSlice = createSlice ({
         setToken: (state, action) => {
             state.token = action.payload;
         },
-        clearToken: (state) => {
-            state.token = null;
-        },
     }
 })
 export const profileSlice = createSlice ({
     name: "profile",
     initialState: {
         showComponent: false,
+        firstName: "Tony",
+        lastName: "Jarvis"
     },
     reducers: {
         toggleComponent: state => {
             state.showComponent = !state.showComponent
         },
+        setFirstName: (state, action) => {
+            state.firstName = action.payload
+        },
+        setLastName: (state, action) => {
+            state.lastName = action.payload
+        }
     }
 })
 
-export const { setToken, clearToken } = authentificationSlice.actions;
+export const { setToken } = authentificationSlice.actions;
 export const { toggleComponent } = profileSlice.actions
+export const { setFirstName } = profileSlice.actions
+export const { setLastName } = profileSlice.actions
