@@ -53,6 +53,10 @@ body {
   font-weight: bold;
   color: #2c3e50;
 }
+.main-nav div {
+  display: flex;
+  gap: 10px;
+}
 
 .main-nav a.router-link-exact-active {
   color: #42b983;
@@ -341,4 +345,10 @@ body {
 .account.page_account {
   width: 100%;
   text-align: center;
+}
+.display {
+  display: block;
+}
+.hidden {
+  display: none;
 }

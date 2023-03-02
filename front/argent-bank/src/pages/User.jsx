@@ -1,14 +1,40 @@
 import "../style/main.css";
 import { useDispatch, useSelector } from "react-redux"
-import { toggleComponent } from "../redux";
+import { toggleComponent, setLastName, setFirstName } from "../redux";
 import EditWelcomeBack from "../Components/EditWelcomBack"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function User() {
     const dispatch = useDispatch();
     const showComponent = useSelector(state => state.profile.showComponent);
     const theFirstName = useSelector(state => state.profile.firstName)
     const theLastName = useSelector(state => state.profile.lastName)
+
+    const token = useSelector(state => state.auth.token)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (!token) {
+            navigate('/login');
+        }
+        async function getData() {
+            const url = 'http://localhost:3001/api/v1/user/profile' 
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                }
+            })
+            const responseData = await response.json();
+            dispatch(setFirstName(responseData.body.firstName))
+            dispatch(setLastName(responseData.body.lastName))
+            return responseData;
+        }
+        getData()
+    }, [token, navigate])
+    
     
     return (
         <main className="main bg-dark main_user">

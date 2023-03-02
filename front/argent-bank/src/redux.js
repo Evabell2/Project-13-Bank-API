@@ -15,8 +15,8 @@ export const profileSlice = createSlice ({
     name: "profile",
     initialState: {
         showComponent: false,
-        firstName: "Tony",
-        lastName: "Jarvis"
+        firstName: "",
+        lastName: "",
     },
     reducers: {
         toggleComponent: state => {
